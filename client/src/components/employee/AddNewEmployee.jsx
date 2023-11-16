@@ -13,9 +13,7 @@ const AddNewEmployee = () => {
     mobile: "",
     address: "",
     gender: "",
-    password: "",
-    confirm_password: "",
-    hobbies: [],
+    skills: [],
     preferences: "",
   };
   const onSubmit = () => {};
@@ -51,26 +49,13 @@ const AddNewEmployee = () => {
                 <Field type="email" className="form-control shadow-sm" name="email" placeholder="Enter your email" />
                 <ErrorMessage component={TextError} name="email" />
               </div>
-              {/* <!-- PASSWORD --> */}
-              <div className="mb-3 d-flex flex-column justify-content-center align-items-center w-100">
-                <Field type="password" className="form-control shadow-sm" name="password" placeholder="Enter your password" />
-                <ErrorMessage component={TextError} name="password" />
-              </div>
-              {/* <!-- CONFIRM PASSWORD --> */}
-              <div className="mb-3 d-flex flex-column justify-content-center align-items-center w-100">
-                <Field type="password" className="form-control shadow-sm" name="confirm_password" placeholder="Confirm password" />
-                <ErrorMessage component={TextError} name="confirm_password" />
-              </div>
+
               {/* <!-- MOBILE --> */}
               <div className="mb-3 d-flex flex-column justify-content-center align-items-center w-100">
                 <Field type="number" className="form-control shadow-sm" name="mobile" placeholder="Enter your mobile" />
                 <ErrorMessage component={TextError} name="mobile" />
               </div>
-              {/* <!-- ADDRESS --> */}
-              <div className="mb-2 d-flex flex-column justify-content-center align-items-center w-100">
-                <Field type="text" className="form-control shadow-sm" name="address" placeholder="Enter your address" />
-                <ErrorMessage component={TextError} name="address" />
-              </div>
+
               {/* <!-- GENDER --> */}
               <div className="mb-2 d-flex flex-column flex-wrap justify-content-start align-items-center w-100">
                 <div className="d-flex justify-content-start flex-wrap ps-1 align-items-center w-100">
@@ -98,54 +83,59 @@ const AddNewEmployee = () => {
                 </div>
                 <ErrorMessage component={TextError} name="gender" />
               </div>
-              {/* <!-- HOBBIES --> */}
+              {/* <!-- SKILLS --> */}
               <div className="mb-2 d-flex flex-wrap justify-content-start align-items-center w-100">
                 <div className="d-flex justify-content-start flex-wrap ps-1 align-items-center w-100">
                   <label className="form-label me-5" style={{ width: "80px" }}>
                     {" "}
-                    Hobbies{" "}
+                    Skills{" "}
                   </label>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="hobbies" value="Photography" id="Photography" />
+                    <Field type="checkbox" className="form-check-input" name="skills" value="Photography" id="Photography" />
                     <label className="form-check-label me-4" htmlFor="Photography">
                       Photography
                     </label>
                   </div>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="hobbies" value="Blogging" id="Blogging" />
+                    <Field type="checkbox" className="form-check-input" name="skills" value="Blogging" id="Blogging" />
                     <label className="form-check-label me-4" htmlFor="Blogging">
                       Blogging
                     </label>
                   </div>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="hobbies" value="Yoga" id="Yoga" />
+                    <Field type="checkbox" className="form-check-input" name="skills" value="Yoga" id="Yoga" />
                     <label className="form-check-label me-4" htmlFor="Yoga">
                       Yoga
                     </label>
                   </div>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="hobbies" value="Art" id="Art" />
+                    <Field type="checkbox" className="form-check-input" name="skills" value="Art" id="Art" />
                     <label className="form-check-label me-4" htmlFor="Art">
                       Art
                     </label>
                   </div>
                 </div>
-                <ErrorMessage component={TextError} name="hobbies" />
+                <ErrorMessage component={TextError} name="skills" />
               </div>
-              {/* <!-- PREFERENCES --> */}
+              {/* <!-- COMPANY --> */}
               <div className="mb-3 d-flex justify-content-start ps-1 align-items-center w-100">
                 <label className="form-label me-5" style={{ width: "100px" }}>
                   {" "}
-                  Preferences{" "}
+                  Company{" "}
                 </label>
-                <select className="form-select" name="preferences">
+                <Field as="select" className="form-select" name="preferences">
                   <option selected disabled value="">
                     Select Top Soft Skills
                   </option>
                   <option value="Problem Solving">Problem Solving</option>
                   <option value="Critical Thinking">Critical Thinking</option>
                   <option value="Creativity">Creativity</option>
-                </select>
+                </Field>
+              </div>
+              {/* <!-- ADDRESS --> */}
+              <div className="mb-2 d-flex flex-column justify-content-center align-items-center w-100">
+                <Field as="textarea" className="form-control shadow-sm" name="address" placeholder="Enter your address" />
+                <ErrorMessage component={TextError} name="address" />
               </div>
               <button className="btn bg-blue btn-primary w-100">Submit</button>
             </Form>
