@@ -28,3 +28,9 @@ td {
   top: 3%;
   left: 1%;
 }
+.heading {
+  font-size: 70px;
+  color: white;
+  text-align: left;
+  font-weight: bolder;
+}
