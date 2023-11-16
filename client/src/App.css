@@ -1,1 +1,30 @@
 @import url("../node_modules/bootstrap/dist/css/bootstrap.min.css");
+.bg-blue {
+  background-color: #4070f4;
+}
+html,
+body {
+  min-height: 100vh;
+  background-color: #4070f4;
+  padding: 0px;
+  margin: 0px;
+}
+.underline {
+  text-decoration: underline;
+  text-decoration-color: #4070f4;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+th,
+td {
+  text-align: center;
+  vertical-align: middle;
+}
+.back {
+  position: absolute;
+  top: 3%;
+  left: 1%;
+}
