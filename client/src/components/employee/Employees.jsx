@@ -1,12 +1,17 @@
 import React from "react";
+import useFetchEmployeeData from "../../api/useFetchEmployeeData";
 
 const Employees = () => {
-  const userData = [];
+  const userData = useFetchEmployeeData();
+  console.log(userData);
   const handleAddNewEmployee = () => {
     window.location.href = "/addNewEmployee ";
   };
+  const onUpdate = () => {};
+  const onDelete = () => {};
   return (
     <>
+      {console.log(userData)}
       <div className="container-fluid">
         <div className="row">
           <div className=" min-vh-100 min-vw-100 p-4 d-flex">
@@ -23,7 +28,7 @@ const Employees = () => {
                   <button className="btn btn-primary bg-blue" onClick={handleAddNewEmployee}>
                     Add New User
                   </button>
-                  <button className="btn btn-secondary ">Logout</button>
+                  {/* <button className="btn btn-secondary ">Logout</button> */}
                 </div>
               </div>
               {userData?.length ? (
@@ -35,46 +40,46 @@ const Employees = () => {
                           <th>ID</th>
                           <th>Name</th>
                           <th>Email</th>
+                          <th>Date of Birth</th>
                           <th>Mobile</th>
                           <th>Address</th>
                           <th>Gender</th>
-                          <th>Hobbies</th>
-                          <th>Preferences</th>
+                          <th>Skills</th>
+                          <th>Company Name</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {/* {userData?.map((ele, index) => {
-                      return (
-                        <tr key={index}>
-                          <td>{ele?.id}</td>
-                          <td>{ele?.name}</td>
-                          <td>{ele?.email}</td>
-                          <td>{ele?.mobile}</td>
-                          <td>{ele?.address?.length > 0 ? ele.address : "..."}</td>
-                          <td>{ele?.gender}</td>
-                          <td>
-                            {ele?.hobbies?.length > 0
-                              ? ele?.hobbies.map((hobby) => (
-                                  <>
-                                    {hobby}
-                                    <br></br>
-                                  </>
-                                ))
-                              : "..."}
-                          </td>
-                          <td>{ele?.preferences?.length > 0 ? ele.preferences : "..."}</td>
-                          <td>
-                            <button className="btn btn-success me-2" onClick={() => onUpdate(ele?.id)}>
-                              Edit
-                            </button>
-                            <button className="btn btn-danger" onClick={(e) => onDelete(e, ele?.id)}>
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })} */}
+                        {userData?.map((ele, index) => {
+                          // console.log(JSON.parse(ele.date_of_birth));
+                          return (
+                            <tr key={index}>
+                              <td>{ele?.id}</td>
+                              <td>{ele?.name}</td>
+                              <td>{ele?.email}</td>
+                              <td>{ele?.date_of_birth}</td>
+                              <td>{ele?.mobile}</td>
+                              <td>{ele?.address?.length > 0 ? ele.address : "..."}</td>
+                              <td>{ele?.gender}</td>
+                              <td>
+                                {ele.skill1 ?<>{ele.skill1 }<br></br></> : ""}
+                                {ele.skill2 ?<>{ele.skill2 }<br></br></> : ""}
+                                {ele.skill3 ?<>{ele.skill3 }<br></br></> : ""}
+                                {ele.skill4 ?<>{ele.skill4 }<br></br></> : ""}
+                               
+                              </td>
+                              <td>{ele.company_name ?? "..."}</td>
+                              <td>
+                                <button className="btn btn-success me-2" onClick={() => onUpdate(ele?.id)}>
+                                  Edit
+                                </button>
+                                <button className="btn btn-danger" onClick={(e) => onDelete(e, ele?.id)}>
+                                  Delete
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>

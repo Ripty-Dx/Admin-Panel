@@ -2,7 +2,7 @@ import React from "react";
 import { AiFillHome } from "react-icons/ai";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./employees.css";
-import {EmployeeValidation} from "../../validation schema/EmployeeValidation";
+import { EmployeeValidation } from "../../validation schema/EmployeeValidation";
 import TextError from "../../validation schema/TextError";
 const AddNewEmployee = () => {
   const handleBackToHome = () => {
@@ -18,9 +18,11 @@ const AddNewEmployee = () => {
     skills: [],
     company: "",
   };
-  const onSubmit = () => {
-    
+  const onSubmit = (values) => {
+    console.log("submitted");
+    console.log(values);
   };
+
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={EmployeeValidation}>
@@ -61,7 +63,7 @@ const AddNewEmployee = () => {
               </div>
 
               {/* <!-- DOB --> */}
-              <div className="mb-3 d-flex flex-column justify-content-center align-items-center w-100" id="dob" >
+              <div className="mb-3 d-flex flex-column justify-content-center align-items-center w-100" id="dob">
                 <Field type="date" className="form-control shadow-sm" name="dob" placeholder="Enter your date of birth" />
                 <ErrorMessage component={TextError} name="dob" />
               </div>
@@ -140,7 +142,7 @@ const AddNewEmployee = () => {
                   Company{" "}
                 </label>
                 <Field as="select" className="form-select" name="company">
-                  <option  disabled value="">
+                  <option disabled value="">
                     Select your company
                   </option>
                   <option value="Microsoft">Microsoft</option>
@@ -151,7 +153,6 @@ const AddNewEmployee = () => {
                   <option value="Apple">Apple</option>
                 </Field>
                 <ErrorMessage component={TextError} name="company" />
-
               </div>
 
               <button className="btn bg-blue btn-primary w-100">Submit</button>
