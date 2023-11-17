@@ -3,7 +3,7 @@ import React from "react";
 const Employees = () => {
   const userData = [];
   const handleAddNewEmployee = () => {
-    window.location.href = "/addNewEmployee";
+    window.location.href = "/addNewEmployee ";
   };
   return (
     <>

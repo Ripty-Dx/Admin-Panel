@@ -1,7 +1,8 @@
 import React from "react";
 import { AiFillHome } from "react-icons/ai";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import EmployeeValidation from "../../validation schema/EmployeeValidation";
+import "./employees.css";
+import {EmployeeValidation} from "../../validation schema/EmployeeValidation";
 import TextError from "../../validation schema/TextError";
 const AddNewEmployee = () => {
   const handleBackToHome = () => {
@@ -11,12 +12,15 @@ const AddNewEmployee = () => {
     name: "",
     email: "",
     mobile: "",
+    dob: "",
     address: "",
     gender: "",
     skills: [],
-    preferences: "",
+    company: "",
   };
-  const onSubmit = () => {};
+  const onSubmit = () => {
+    
+  };
   return (
     <>
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={EmployeeValidation}>
@@ -56,6 +60,18 @@ const AddNewEmployee = () => {
                 <ErrorMessage component={TextError} name="mobile" />
               </div>
 
+              {/* <!-- DOB --> */}
+              <div className="mb-3 d-flex flex-column justify-content-center align-items-center w-100" id="dob" >
+                <Field type="date" className="form-control shadow-sm" name="dob" placeholder="Enter your date of birth" />
+                <ErrorMessage component={TextError} name="dob" />
+              </div>
+
+              {/* <!-- ADDRESS --> */}
+              <div className="mb-2 d-flex flex-column justify-content-center align-items-center w-100">
+                <Field as="textarea" className="form-control shadow-sm" name="address" placeholder="Enter your address" />
+                <ErrorMessage component={TextError} name="address" />
+              </div>
+
               {/* <!-- GENDER --> */}
               <div className="mb-2 d-flex flex-column flex-wrap justify-content-start align-items-center w-100">
                 <div className="d-flex justify-content-start flex-wrap ps-1 align-items-center w-100">
@@ -91,27 +107,27 @@ const AddNewEmployee = () => {
                     Skills{" "}
                   </label>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="skills" value="Photography" id="Photography" />
-                    <label className="form-check-label me-4" htmlFor="Photography">
-                      Photography
+                    <Field type="checkbox" className="form-check-input" name="skills" value="Python" id="Python" />
+                    <label className="form-check-label me-4" htmlFor="Python">
+                      Python
                     </label>
                   </div>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="skills" value="Blogging" id="Blogging" />
-                    <label className="form-check-label me-4" htmlFor="Blogging">
-                      Blogging
+                    <Field type="checkbox" className="form-check-input" name="skills" value="Javascript" id="Javascript" />
+                    <label className="form-check-label me-4" htmlFor="Javascript">
+                      Javascript
                     </label>
                   </div>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="skills" value="Yoga" id="Yoga" />
-                    <label className="form-check-label me-4" htmlFor="Yoga">
-                      Yoga
+                    <Field type="checkbox" className="form-check-input" name="skills" value="PHP" id="PHP" />
+                    <label className="form-check-label me-4" htmlFor="PHP">
+                      PHP
                     </label>
                   </div>
                   <div className="form-check">
-                    <Field type="checkbox" className="form-check-input" name="skills" value="Art" id="Art" />
-                    <label className="form-check-label me-4" htmlFor="Art">
-                      Art
+                    <Field type="checkbox" className="form-check-input" name="skills" value="Java" id="Java" />
+                    <label className="form-check-label me-4" htmlFor="Java">
+                      Java
                     </label>
                   </div>
                 </div>
@@ -123,20 +139,21 @@ const AddNewEmployee = () => {
                   {" "}
                   Company{" "}
                 </label>
-                <Field as="select" className="form-select" name="preferences">
-                  <option selected disabled value="">
-                    Select Top Soft Skills
+                <Field as="select" className="form-select" name="company">
+                  <option  disabled value="">
+                    Select your company
                   </option>
-                  <option value="Problem Solving">Problem Solving</option>
-                  <option value="Critical Thinking">Critical Thinking</option>
-                  <option value="Creativity">Creativity</option>
+                  <option value="Microsoft">Microsoft</option>
+                  <option value="Google">Google</option>
+                  <option value="Amazon">Amazon</option>
+                  <option value="Meta">Meta</option>
+                  <option value="Dell">Dell</option>
+                  <option value="Apple">Apple</option>
                 </Field>
+                <ErrorMessage component={TextError} name="company" />
+
               </div>
-              {/* <!-- ADDRESS --> */}
-              <div className="mb-2 d-flex flex-column justify-content-center align-items-center w-100">
-                <Field as="textarea" className="form-control shadow-sm" name="address" placeholder="Enter your address" />
-                <ErrorMessage component={TextError} name="address" />
-              </div>
+
               <button className="btn bg-blue btn-primary w-100">Submit</button>
             </Form>
           </div>
