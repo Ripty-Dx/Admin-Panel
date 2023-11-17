@@ -4,7 +4,9 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import "./employees.css";
 import { EmployeeValidation } from "../../validation schema/EmployeeValidation";
 import TextError from "../../validation schema/TextError";
+import useAddNewEmployee from "../../api/useAddNewEmployee";
 const AddNewEmployee = () => {
+  const api = useAddNewEmployee();
   const handleBackToHome = () => {
     window.location.href = "/";
   };
@@ -16,11 +18,16 @@ const AddNewEmployee = () => {
     address: "",
     gender: "",
     skills: [],
+    // skill2: "",
+    // skill3: "",
+    // skill4: "",
     company: "",
   };
+  console.log(initialValues);
   const onSubmit = (values) => {
-    console.log("submitted");
-    console.log(values);
+    // console.log("submitted");
+    // console.log(values);
+    api.mutateAsync(values);
   };
 
   return (

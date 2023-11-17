@@ -6,8 +6,16 @@ import cors from "cors";
 const app = express();
 const port = 5000;
 
+var corsOptions = {
+  origin: "http://localhost:5000",
+};
+// parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// app.use(cors(corsOptions));
 app.use(cors());
+// parse requests of content-type - application/json
+app.use(express.json());
 
 //  create connection
 const db = mysql.createConnection({
@@ -39,30 +47,35 @@ app.get("/useFetchEmployeeData", (req, res) => {
       throw err;
     }
     console.log(result);
-    res.status(200).send({ "EmployeeList": result });
+    res.status(200).send({ EmployeeList: result });
   });
   // res.status(200).send("node");
 });
 app.get("/addNewEmployee", (req, res) => {
-  let data = {
-    name: "Ripty",
-    email: "ripty@gmail.com",
-    mobile: 1234567890,
-    gender: "Female",
-    date_of_birth: "1994-11-30",
-    company_name: "DELL",
-    address: "Mohali",
-    skills: '{"1": "Java", "2": "PHP"}',
-  };
+  // let data = {
+  //   name: "Ripty",
+  //   email: "ripty@gmail.com",
+  //   mobile: 1234567890,
+  //   gender: "Female",
+  //   date_of_birth: "1994-11-30",
+  //   company_name: "DELL",
+  //   address: "Mohali",
+  //   skill1:"Python",
+  //   skill2:"Javascript",
+  //   skill3:"PHP",
+  //   skill4:"Java",
+  // };
+  let data = req.body;
+  console.log(req.body);
   let sql = "insert into employees SET ?";
-  console.log(res);
-  db.query(sql, data, (err, result) => {
-    if (err) {
-      throw err;
-    }
-    // console.log(result);
-    res.status(200).send("Employee added successfully");
-  });
+  // console.log(res);
+  // db.query(sql, data, (err, result) => {
+  //   if (err) {
+  //     throw err;
+  //   }
+  //   // console.log(result);
+  res.status(200).send("Employee added successfully");
+  // });
 });
 app.listen(5000, () => {
   console.log("server is running on port 5000");
