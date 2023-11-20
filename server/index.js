@@ -46,16 +46,16 @@ app.get("/useFetchEmployeeData", (req, res) => {
     if (err) {
       throw err;
     }
-    console.log(result);
+    // console.log(result);
     res.status(200).send({ EmployeeList: result });
   });
   // res.status(200).send("node");
 });
+// TO add new employee in database
 app.post("/addNewEmployee", (req, res) => {
   let data = req.body;
   let skillObject = {};
-  let skills = ["Python", "Javascript","PHP","Java"];
-  // let ob = {};
+  let skills = ["Python", "Javascript", "PHP", "Java"];
   skills.map((ele) => {
     if (req.body.skills.includes(ele)) {
       skillObject[ele] = "true";
@@ -63,26 +63,26 @@ app.post("/addNewEmployee", (req, res) => {
       skillObject[ele] = "false";
     }
   });
-  // console.log(ob);
-  
-  // console.log(req.body);
-  // console.log("skillObject", skillObject);
 
-  let sql = `insert into employees (name,email,mobile,gender,date_of_birth,company_name,address, python,Javascript,PHP,Java) values("${req.body.name}","${req.body.email}","${req.body.mobile}","${req.body.gender}","${req.body.dob}","${req.body.company}","${req.body.address}", "${skillObject.Python}","${skillObject.Javascript}","${skillObject.PHP}","${skillObject.Java}")`;
-
-  // console.log(sql);
-  // console.log(res);
+  let sql = `insert into employees (name,email,mobile,gender,date_of_birth,company_name,address, Python,Javascript,PHP,Java) values("${req.body.name}","${req.body.email}","${req.body.mobile}","${req.body.gender}","${req.body.dob}","${req.body.company}","${req.body.address}", "${skillObject.Python}","${skillObject.Javascript}","${skillObject.PHP}","${skillObject.Java}")`;
   db.query(sql, data, (err, result) => {
     if (err) {
-      throw err;
+      console.log(err.sqlMessage);
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
     }
     // console.log(result);
-    res.status(200).send("data inserted successfully");
+    res.send({
+      message: "data inserted successfully",
+      status: 200,
+    });
   });
-});
-app.listen(5000, () => {
-  console.log("server is running on port 5000");
 });
 app.get("/", (req, res) => {
   res.send("node");
+});
+app.listen(5000, () => {
+  console.log("server is running on port 5000");
 });

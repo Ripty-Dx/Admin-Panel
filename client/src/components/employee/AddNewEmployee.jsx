@@ -5,8 +5,12 @@ import "./employees.css";
 import { EmployeeValidation } from "../../validation schema/EmployeeValidation";
 import TextError from "../../validation schema/TextError";
 import useAddNewEmployee from "../../api/useAddNewEmployee";
+import { useNavigate } from "react-router-dom";
+import useFetchEmployeeData from "../../api/useFetchEmployeeData";
 const AddNewEmployee = () => {
   const api = useAddNewEmployee();
+  const employeesList = useFetchEmployeeData();
+  const navigate = useNavigate();
   const handleBackToHome = () => {
     window.location.href = "/";
   };
@@ -21,8 +25,22 @@ const AddNewEmployee = () => {
     company: "",
   };
   console.log(initialValues);
-  const onSubmit = (values) => {
-    api.mutateAsync(values);
+  const onSubmit = async (values) => {
+    const emailFilteredData = employeesList.filter((ele) => !ele.email.localeCompare(values.email));
+    if (emailFilteredData.length > 0) {
+      alert("This email already exists. Try Again!");
+    } else {
+      const data = await api.mutateAsync(values);
+      if (data.status === 200) {
+        navigate("/success", {
+          state: {
+            message: "Employee added successfully",
+          },
+        });
+      } else {
+        alert(data.message, "Try Again!");
+      }
+    }
   };
 
   return (

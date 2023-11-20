@@ -3,7 +3,7 @@ import useFetchEmployeeData from "../../api/useFetchEmployeeData";
 
 const Employees = () => {
   const userData = useFetchEmployeeData();
-  console.log(userData);
+  // console.log(userData);
   const handleAddNewEmployee = () => {
     window.location.href = "/addNewEmployee ";
   };
@@ -11,10 +11,9 @@ const Employees = () => {
   const onDelete = () => {};
   return (
     <>
-      {console.log(userData)}
       <div className="container-fluid">
         <div className="row">
-          <div className=" min-vh-100 min-vw-100 p-4 d-flex">
+          <div className=" min-vh-100  p-4 d-flex">
             <div className="w-100 shadow-sm bg-white border rounded-3 p-4 min-vh-50">
               <div className="d-flex gap-3 justify-content-center px-1 align-items-center mb-1">
                 <p className="align-middle m-0 fs-1 text-danger fw-bold">List of Employees </p>
@@ -51,22 +50,46 @@ const Employees = () => {
                       </thead>
                       <tbody>
                         {userData?.map((ele, index) => {
-                          // console.log(JSON.parse(ele.date_of_birth));
+                          const date = new Date(ele?.date_of_birth);
                           return (
                             <tr key={index}>
                               <td>{ele?.id}</td>
                               <td>{ele?.name}</td>
                               <td>{ele?.email}</td>
-                              <td>{ele?.date_of_birth}</td>
+                              <td>{date.toString().slice(3, 15)}</td>
                               <td>{ele?.mobile}</td>
                               <td>{ele?.address?.length > 0 ? ele.address : "..."}</td>
                               <td>{ele?.gender}</td>
                               <td>
-                                {ele.skill1 ?<>{ele.skill1 }<br></br></> : ""}
-                                {ele.skill2 ?<>{ele.skill2 }<br></br></> : ""}
-                                {ele.skill3 ?<>{ele.skill3 }<br></br></> : ""}
-                                {ele.skill4 ?<>{ele.skill4 }<br></br></> : ""}
-                               
+                                {ele.Python === "true" ? (
+                                  <>
+                                    Python<br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {ele.Javascript === "true" ? (
+                                  <>
+                                    Javascript
+                                    <br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {ele.PHP === "true" ? (
+                                  <>
+                                    PHP<br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {ele.Java === "true" ? (
+                                  <>
+                                    Java<br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
                               </td>
                               <td>{ele.company_name ?? "..."}</td>
                               <td>

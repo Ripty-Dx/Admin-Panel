@@ -18,11 +18,11 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-th,
-td {
-  text-align: center;
+th,td {
+  text-align: start;
   vertical-align: middle;
 }
+
 .back {
   position: absolute;
   top: 3%;
