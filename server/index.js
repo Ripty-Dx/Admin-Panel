@@ -51,32 +51,38 @@ app.get("/useFetchEmployeeData", (req, res) => {
   });
   // res.status(200).send("node");
 });
-app.get("/addNewEmployee", (req, res) => {
-  // let data = {
-  //   name: "Ripty",
-  //   email: "ripty@gmail.com",
-  //   mobile: 1234567890,
-  //   gender: "Female",
-  //   date_of_birth: "1994-11-30",
-  //   company_name: "DELL",
-  //   address: "Mohali",
-  //   skill1:"Python",
-  //   skill2:"Javascript",
-  //   skill3:"PHP",
-  //   skill4:"Java",
-  // };
+app.post("/addNewEmployee", (req, res) => {
   let data = req.body;
-  console.log(req.body);
-  let sql = "insert into employees SET ?";
+  let skillObject = {};
+  let skills = ["Python", "Javascript","PHP","Java"];
+  // let ob = {};
+  skills.map((ele) => {
+    if (req.body.skills.includes(ele)) {
+      skillObject[ele] = "true";
+    } else {
+      skillObject[ele] = "false";
+    }
+  });
+  // console.log(ob);
+  
+  // console.log(req.body);
+  // console.log("skillObject", skillObject);
+
+  let sql = `insert into employees (name,email,mobile,gender,date_of_birth,company_name,address, python,Javascript,PHP,Java) values("${req.body.name}","${req.body.email}","${req.body.mobile}","${req.body.gender}","${req.body.dob}","${req.body.company}","${req.body.address}", "${skillObject.Python}","${skillObject.Javascript}","${skillObject.PHP}","${skillObject.Java}")`;
+
+  // console.log(sql);
   // console.log(res);
-  // db.query(sql, data, (err, result) => {
-  //   if (err) {
-  //     throw err;
-  //   }
-  //   // console.log(result);
-  res.status(200).send("Employee added successfully");
-  // });
+  db.query(sql, data, (err, result) => {
+    if (err) {
+      throw err;
+    }
+    // console.log(result);
+    res.status(200).send("data inserted successfully");
+  });
 });
 app.listen(5000, () => {
   console.log("server is running on port 5000");
+});
+app.get("/", (req, res) => {
+  res.send("node");
 });

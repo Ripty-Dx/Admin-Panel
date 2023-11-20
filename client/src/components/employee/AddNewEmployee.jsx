@@ -18,15 +18,10 @@ const AddNewEmployee = () => {
     address: "",
     gender: "",
     skills: [],
-    // skill2: "",
-    // skill3: "",
-    // skill4: "",
     company: "",
   };
   console.log(initialValues);
   const onSubmit = (values) => {
-    // console.log("submitted");
-    // console.log(values);
     api.mutateAsync(values);
   };
 
