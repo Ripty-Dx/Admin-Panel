@@ -34,10 +34,10 @@ const Employees = () => {
               </div>
               {userData?.length ? (
                 <>
-                  <div className="table-responsive">
+                  <div className="table-responsive border" style={{maxHeight:"65vh"}}>
                     <table className="table table-striped border">
                       <thead>
-                        <tr>
+                        <tr >
                           <th>ID</th>
                           <th>Name</th>
                           <th>Email</th>

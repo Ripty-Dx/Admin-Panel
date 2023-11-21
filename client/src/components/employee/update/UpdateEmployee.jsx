@@ -5,32 +5,38 @@ import { EmployeeValidation } from "../../../validation schema/EmployeeValidatio
 import { AiFillHome } from "react-icons/ai";
 import TextError from "../../../validation schema/TextError";
 import useFetchSpecificEmployee from "../../../api/useFetchSpecificEmployee";
+import useUpdateEmployeeDetails from "../../../api/useUpdateEmployeeDetails";
 
 const UpdateEmployee = () => {
   const employee = useFetchSpecificEmployee();
+  const apiUpdateCall = useUpdateEmployeeDetails();
   const [employeeDetailsState, setEmployeeDetailsState] = useState({});
   const employeeId = sessionStorage.getItem("updateEmployeeId");
   const date = new Date(employeeDetailsState?.date_of_birth);
   const employeeDetails = async () => {
     const response = await employee.fetchSpecificEmployee(employeeId);
-    console.log(response);
     setEmployeeDetailsState(response);
     return response;
   };
   useEffect(() => {
     employeeDetails();
   }, [employeeId]);
-  console.log(employeeDetailsState);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleBackToHome = () => {
     window.location.href = "/";
   };
-  console.log(typeof date.getMonth());
   const initialValues = {
     name: employeeDetailsState?.name,
     email: employeeDetailsState?.email,
     mobile: employeeDetailsState?.mobile,
-    dob: date.getMonth() < 10 ? `${date.getFullYear()}-0${Number(date.getMonth() + 1)}-${date.getDate()}` : `${date.getFullYear()}-${Number(date.getMonth() + 1)}-${date.getDate()}`,
+    dob:
+      date.getMonth() < 10
+        ? date.getDate() < 10
+          ? `${date.getFullYear()}-0${Number(date.getMonth() + 1)}-0${date.getDate()}`
+          : `${date.getFullYear()}-0${Number(date.getMonth() + 1)}-${date.getDate()}`
+        : date.getDate() < 10
+        ? `${date.getFullYear()}-${Number(date.getMonth() + 1)}-0${date.getDate()}`
+        : `${date.getFullYear()}-${Number(date.getMonth() + 1)}-${date.getDate()}`,
     address: employeeDetailsState?.address,
     gender: employeeDetailsState?.gender,
     skills: [
@@ -41,9 +47,18 @@ const UpdateEmployee = () => {
     ],
     company: employeeDetailsState?.company_name,
   };
-  console.log(initialValues);
   const onSubmit = async (values) => {
-    console.log("values", values);
+    const result = await apiUpdateCall.updateEmployeeDetails(values, employeeId);
+    console.log(result);
+    if (result.status === 200) {
+      navigate("/success", {
+        state: {
+          message: result.message,
+        },
+      });
+    } else {
+      alert(result.message, "Try Again!");
+    }
   };
 
   return (

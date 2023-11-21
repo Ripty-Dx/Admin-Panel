@@ -18,9 +18,11 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-th,td {
+th,
+td {
   text-align: start;
   vertical-align: middle;
+  margin: 0px;
 }
 
 .back {
@@ -34,3 +36,41 @@ th,td {
   text-align: left;
   font-weight: bolder;
 }
+th {
+  position: sticky;
+  top: -2px;
+  z-index: 5;
+  height: 70px;
+}
+td:nth-child(1) {
+  position: sticky;
+  left: -1px;
+  z-index: 5;
+}
+th:nth-child(1) {
+  position: sticky;
+  left: -1px;
+  z-index: 7;
+}
+td:nth-child(2) {
+  position: sticky;
+  left: 32px;
+  z-index: 5;
+}
+th:nth-child(2) {
+  position: sticky;
+  left: 32px;
+  z-index: 7;
+}
+td:nth-child(10) {
+  position: sticky;
+  right: 0px;
+  z-index: 5;
+}
+th:nth-child(10) {
+  position: sticky;
+  right: 0px;
+  z-index: 7;
+}
+
+

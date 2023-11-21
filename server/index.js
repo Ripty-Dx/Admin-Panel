@@ -94,7 +94,7 @@ app.get("/useFetchEmployeeData/:id", (req, res) => {
         status: 400,
       });
     }
-    console.log(result);
+    // console.log(result);
     res.send({
       EmployeeList: result,
       status: 200,
@@ -102,6 +102,37 @@ app.get("/useFetchEmployeeData/:id", (req, res) => {
   });
 });
 // to update employee details
+app.put("/updateEmployee/:id", (req, res) => {
+  console.log("put request");
+  let data = req.body;
+  let id = req.params.id;
+  console.log("data", data, "id", id);
+  let skillObject = {};
+  let skills = ["Python", "Javascript", "PHP", "Java"];
+  skills.map((ele) => {
+    if (req.body.skills.includes(ele)) {
+      skillObject[ele] = "true";
+    } else {
+      skillObject[ele] = "false";
+    }
+  });
+  let sql = `UPDATE employees set name="${req.body.name}",email="${req.body.email}", mobile="${req.body.mobile}", gender="${req.body.gender}",date_of_birth="${req.body.dob}", company_name="${req.body.company}",address="${req.body.address}", Python="${skillObject.Python}", PHP="${skillObject.PHP}", Java="${skillObject.Java}", Javascript="${skillObject.Javascript}" where id=${id}`;
+  db.query(sql, data, (err, result) => {
+    if (err) {
+      console.log(err.sqlMessage);
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    // console.log(result);
+    res.send({
+      message: "Data updated successfully",
+      status: 200,
+    });
+  });
+});
+// Home page
 app.get("/", (req, res) => {
   res.send("node");
 });
