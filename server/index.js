@@ -39,6 +39,7 @@ app.get("/createEmployeesTable", (req, res) => {
     res.status(200).send("Table created successfully!");
   });
 });
+// fetch all data from table employees
 app.get("/useFetchEmployeeData", (req, res) => {
   let sql = "select * from employees";
   // console.log(res);
@@ -83,6 +84,7 @@ app.post("/addNewEmployee", (req, res) => {
 app.get("/", (req, res) => {
   res.send("node");
 });
+// listen on port 5000
 app.listen(5000, () => {
   console.log("server is running on port 5000");
 });
