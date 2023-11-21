@@ -132,6 +132,24 @@ app.put("/updateEmployee/:id", (req, res) => {
     });
   });
 });
+// to delete employee details
+app.delete("/deleteEmployee/:id", (req, res) => {
+  const id = req.params.id;
+  const sqlQuery = `DELETE FROM employees WHERE id=${id}`;
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      console.log(err.sqlMessage);
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    res.send({
+      message: "Data deleted successfully",
+      status: 200,
+    });
+  });
+});
 // Home page
 app.get("/", (req, res) => {
   res.send("node");

@@ -1,8 +1,12 @@
 import React from "react";
 import useFetchEmployeeData from "../../api/useFetchEmployeeData";
+import useDeleteEmployee from "../../api/useDeleteEmployee";
+import { useNavigate } from "react-router-dom";
 
 const Employees = () => {
+  const navigate = useNavigate();
   const userData = useFetchEmployeeData();
+  const deleteApi = useDeleteEmployee();
   const handleAddNewEmployee = () => {
     window.location.href = "/addNewEmployee ";
   };
@@ -10,7 +14,19 @@ const Employees = () => {
     sessionStorage.setItem("updateEmployeeId", id);
     window.location.href = "/updateEmployee";
   };
-  const onDelete = () => {};
+  const onDelete = async (id) => {
+    const result = await deleteApi.deleteEmployee(id);
+    console.log(result);
+    if (result.status === 200) {
+      navigate("/success", {
+        state: {
+          message: result.message,
+        },
+      });
+    } else {
+      alert(result.message, "Try Again!");
+    }
+  };
   return (
     <>
       <div className="container-fluid">
@@ -34,10 +50,10 @@ const Employees = () => {
               </div>
               {userData?.length ? (
                 <>
-                  <div className="table-responsive border" style={{maxHeight:"65vh"}}>
+                  <div className="table-responsive border" style={{ maxHeight: "65vh" }}>
                     <table className="table table-striped border">
                       <thead>
-                        <tr >
+                        <tr>
                           <th>ID</th>
                           <th>Name</th>
                           <th>Email</th>
@@ -98,7 +114,7 @@ const Employees = () => {
                                 <button className="btn btn-success me-2" onClick={() => onEdit(ele?.id)}>
                                   Edit
                                 </button>
-                                <button className="btn btn-danger" onClick={(e) => onDelete(e, ele?.id)}>
+                                <button className="btn btn-danger" onClick={(e) => onDelete(ele?.id)}>
                                   Delete
                                 </button>
                               </td>
