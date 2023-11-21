@@ -1,51 +1,54 @@
-import React from "react";
-import { AiFillHome } from "react-icons/ai";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import "./employees.css";
-import { EmployeeValidation } from "../../validation schema/EmployeeValidation";
-import TextError from "../../validation schema/TextError";
-import useAddNewEmployee from "../../api/useAddNewEmployee";
+import { ErrorMessage, Field, Form, Formik } from "formik";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useFetchEmployeeData from "../../api/useFetchEmployeeData";
-const AddNewEmployee = () => {
-  const api = useAddNewEmployee();
-  const employeesList = useFetchEmployeeData();
-  const navigate = useNavigate();
+import { EmployeeValidation } from "../../../validation schema/EmployeeValidation";
+import { AiFillHome } from "react-icons/ai";
+import TextError from "../../../validation schema/TextError";
+import useFetchSpecificEmployee from "../../../api/useFetchSpecificEmployee";
+
+const UpdateEmployee = () => {
+  const employee = useFetchSpecificEmployee();
+  const [employeeDetailsState, setEmployeeDetailsState] = useState({});
+  const employeeId = sessionStorage.getItem("updateEmployeeId");
+  const date = new Date(employeeDetailsState?.date_of_birth);
+  const employeeDetails = async () => {
+    const response = await employee.fetchSpecificEmployee(employeeId);
+    console.log(response);
+    setEmployeeDetailsState(response);
+    return response;
+  };
+  useEffect(() => {
+    employeeDetails();
+  }, [employeeId]);
+  console.log(employeeDetailsState);
+  //   const navigate = useNavigate();
   const handleBackToHome = () => {
     window.location.href = "/";
   };
+  console.log(typeof date.getMonth());
   const initialValues = {
-    name: "",
-    email: "",
-    mobile: "",
-    dob: "",
-    address: "",
-    gender: "",
-    skills: [],
-    company: "",
+    name: employeeDetailsState?.name,
+    email: employeeDetailsState?.email,
+    mobile: employeeDetailsState?.mobile,
+    dob: date.getMonth() < 10 ? `${date.getFullYear()}-0${Number(date.getMonth() + 1)}-${date.getDate()}` : `${date.getFullYear()}-${Number(date.getMonth() + 1)}-${date.getDate()}`,
+    address: employeeDetailsState?.address,
+    gender: employeeDetailsState?.gender,
+    skills: [
+      employeeDetailsState?.Java === "true" ? "Java" : null,
+      employeeDetailsState?.PHP === "true" ? "PHP" : null,
+      employeeDetailsState?.Python === "true" ? "Python" : null,
+      employeeDetailsState?.Javascript === "true" ? "Javascript" : null,
+    ],
+    company: employeeDetailsState?.company_name,
   };
   console.log(initialValues);
   const onSubmit = async (values) => {
-    const emailFilteredData = employeesList.filter((ele) => !ele.email.localeCompare(values.email));
-    if (emailFilteredData.length > 0) {
-      alert("This email already exists. Try Again!");
-    } else {
-      const data = await api.mutateAsync(values);
-      if (data.status === 200) {
-        navigate("/success", {
-          state: {
-            message: "Employee added successfully",
-          },
-        });
-      } else {
-        alert(data.message, "Try Again!");
-      }
-    }
+    console.log("values", values);
   };
 
   return (
     <>
-      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={EmployeeValidation}>
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={EmployeeValidation} enableReinitialize={true}>
         <div className="bg-blue min-vh-100 p-4 d-flex">
           {/* <!-- Left part --> */}
           <div className="col-6 d-flex flex-wrap justify-content-center align-items-center flex-column">
@@ -54,7 +57,7 @@ const AddNewEmployee = () => {
             </button>
             <div className="d-flex flex-wrap justify-content-center align-items-center flex-column">
               <div>
-                <h1 className="heading">Registration</h1>
+                <h1 className="heading">Updating</h1>
                 <h1 className="heading">Form</h1>
               </div>
             </div>
@@ -62,7 +65,7 @@ const AddNewEmployee = () => {
           {/* <!-- right part --> */}
           <div className="w-50 mx-auto my-auto shadow-sm bg-white border rounded-3 px-4 py-3">
             <h3 className="mb-2">
-              <span className="underline">Re</span>gistration
+              <span className="underline">U</span>pdate
             </h3>
             <Form>
               {/* <!-- NAME --> */}
@@ -184,4 +187,4 @@ const AddNewEmployee = () => {
   );
 };
 
-export default AddNewEmployee;
+export default UpdateEmployee;

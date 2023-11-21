@@ -81,6 +81,27 @@ app.post("/addNewEmployee", (req, res) => {
     });
   });
 });
+// to get details of selected employee
+app.get("/useFetchEmployeeData/:id", (req, res) => {
+  let id = req.params.id;
+  let sql = `select * from employees where id=${id}`;
+  // console.log(res);
+  db.query(sql, (err, result) => {
+    if (err) {
+      console.log(err.sqlMessage);
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    console.log(result);
+    res.send({
+      EmployeeList: result,
+      status: 200,
+    });
+  });
+});
+// to update employee details
 app.get("/", (req, res) => {
   res.send("node");
 });

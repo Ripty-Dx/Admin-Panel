@@ -3,11 +3,13 @@ import useFetchEmployeeData from "../../api/useFetchEmployeeData";
 
 const Employees = () => {
   const userData = useFetchEmployeeData();
-  // console.log(userData);
   const handleAddNewEmployee = () => {
     window.location.href = "/addNewEmployee ";
   };
-  const onUpdate = () => {};
+  const onEdit = async (id) => {
+    sessionStorage.setItem("updateEmployeeId", id);
+    window.location.href = "/updateEmployee";
+  };
   const onDelete = () => {};
   return (
     <>
@@ -93,7 +95,7 @@ const Employees = () => {
                               </td>
                               <td>{ele.company_name ?? "..."}</td>
                               <td>
-                                <button className="btn btn-success me-2" onClick={() => onUpdate(ele?.id)}>
+                                <button className="btn btn-success me-2" onClick={() => onEdit(ele?.id)}>
                                   Edit
                                 </button>
                                 <button className="btn btn-danger" onClick={(e) => onDelete(e, ele?.id)}>
