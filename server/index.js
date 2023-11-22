@@ -18,18 +18,7 @@ app.use(cors());
 app.use(express.json());
 // Employee CRUD
 app.use("/employee", employeeRoutes);
-//  create connection
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "admin_panel",
-  // password
-});
-// to connect
-db.connect((err) => {
-  if (err) throw err;
-  console.log("mysql database connected");
-});
+
 // create table employees
 app.get("/createEmployeesTable", (req, res) => {
   let sqlQuery =

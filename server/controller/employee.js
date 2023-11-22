@@ -1,18 +1,7 @@
 import mysql from "mysql";
 import connection from "../database/connection.js";
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "admin_panel",
-  // password
-});
-// to connect
-db.connect((err) => {
-  if (err) throw err;
-  console.log("mysql database connected");
-});
-// const db=connection();
-console.log("db",db);
+const db=connection();
+// console.log("db",db);
 
 // fetch all data from table employees
 export const listOfEmployees = (req, res) => {

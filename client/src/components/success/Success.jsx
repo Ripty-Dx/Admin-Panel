@@ -19,9 +19,9 @@ const Success = () => {
                 <AiFillHome style={{ color: "#4070f4" }} />
               </button>
               <div className="d-flex justify-content-center align-items-center flex-column" style={{ height: "90vh" }}>
-                {/* <h1 className="heading">{location.state.status === 200 || 201 ? location.state.message : "Something went wrong. Please try again...."}</h1> */}
-                {/* <img src={require("../../assets/success.gif")} alt="success" /> */}
-                <Player src={require("../../assets/successAnimation.json")} className="player" />
+                <h1 className="heading">{location.state.status === 200 || 201 ? location.state.message : "Something went wrong. Please try again...."}</h1>
+                <img src={require("../../assets/success.gif")} alt="success" />
+                {/* <Player src={require("../../assets/successAnimation.json")} className="player" /> */}
               </div>
             </div>
           </div>
