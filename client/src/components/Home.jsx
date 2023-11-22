@@ -6,6 +6,8 @@ const Home = () => {
   const handleClick = (str) => {
     if (str === "employee") {
       window.location.href = "/employee/list";
+    } if (str === "company") {
+      window.location.href = "/company/list";
     }
   };
   return (
@@ -25,7 +27,7 @@ const Home = () => {
             >
               <p className="m-0 fs-4">Employee</p>
             </div>
-            <div className="border bg-white rounded d-flex justify-content-center align-items-center" style={{ height: "150px", width: "250px", cursor: "pointer" }}>
+            <div className="border bg-white rounded d-flex justify-content-center align-items-center" style={{ height: "150px", width: "250px", cursor: "pointer" }} onClick={() => handleClick("company")}>
               <p className="m-0 fs-4">Company</p>
             </div>
           </div>
