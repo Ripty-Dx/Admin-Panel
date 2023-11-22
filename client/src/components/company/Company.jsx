@@ -1,11 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import useFetchCompany from "../../api/company/useFetchCompany";
 
 const Company = () => {
-    const userData=[];
-    const onEdit=()=>{}
-    const onDelete=()=>{}
+  const companyData = useFetchCompany();
+  const onEdit = () => {};
+  const onDelete = () => {};
+
   return (
-   <>
+    <>
       <div className="container-fluid">
         <div className="row">
           <div className=" min-vh-100  p-4 d-flex">
@@ -18,13 +20,11 @@ const Company = () => {
                   <span className="underline">All</span> Companies
                 </h3>
                 <div className="gap-2 d-flex">
-                  <button className="btn btn-primary bg-blue" >
-                    Add New Company
-                  </button>
+                  <button className="btn btn-primary bg-blue">Add New Company</button>
                   {/* <button className="btn btn-secondary ">Logout</button> */}
                 </div>
               </div>
-              {userData?.length ? (
+              {companyData?.length ? (
                 <>
                   <div className="table-responsive border" style={{ maxHeight: "65vh" }}>
                     <table className="table table-striped border">
@@ -34,59 +34,33 @@ const Company = () => {
                           <th>Logo</th>
                           <th>Name</th>
                           <th>Email</th>
-                          <th>Date of Birth</th>
-                          <th>Mobile</th>
-                          <th>Address</th>
-                          <th>Gender</th>
-                          <th>Skills</th>
-                          <th>Company Name</th>
+                          <th>Sectors</th>
+                          <th>Headquarters</th>
+                          <th>Employee Count</th>
+                          <th>Business Model</th>
+                          <th>Founding Date</th>
+                          <th>CEO</th>
+                          {/* <th>Address</th> */}
                           <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {userData?.map((ele, index) => {
-                          const date = new Date(ele?.date_of_birth);
+                        {companyData?.map((ele, index) => {
+                          const date = new Date(ele?.founding_date);
                           return (
                             <tr key={index}>
                               <td>{ele?.id}</td>
-                              <td>{ele?.name}</td>
-                              <td>{ele?.email}</td>
+                              <td>{ele?.logo ?? "..."}</td>
+                              <td>{ele?.name ?? "..."}</td>
+                              <td>{ele?.email ?? "..."}</td>
+                              <td>{ele?.sectors ?? "..."}</td>
+                              <td>{ele?.headquarter ?? "..."}</td>
+                              <td>{ele?.employee_count ?? "..."}</td>
+                              <td>{ele?.business_model ?? "..."}</td>
                               <td>{date.toString().slice(3, 15)}</td>
-                              <td>{ele?.mobile}</td>
-                              <td>{ele?.address?.length > 0 ? ele.address : "..."}</td>
-                              <td>{ele?.gender}</td>
-                              <td>
-                                {ele.Python === "true" ? (
-                                  <>
-                                    Python<br></br>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                                {ele.Javascript === "true" ? (
-                                  <>
-                                    Javascript
-                                    <br></br>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                                {ele.PHP === "true" ? (
-                                  <>
-                                    PHP<br></br>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                                {ele.Java === "true" ? (
-                                  <>
-                                    Java<br></br>
-                                  </>
-                                ) : (
-                                  ""
-                                )}
-                              </td>
-                              <td>{ele.company_name ?? "..."}</td>
+                              <td>{ele?.ceo ?? "..."}</td>
+
+                              {/* <td>{ele?.address?.length > 0 ? ele.address : "..."}</td> */}
                               <td>
                                 <button className="btn btn-success me-2" onClick={() => onEdit(ele?.id)}>
                                   Edit
@@ -114,7 +88,7 @@ const Company = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default Company
+export default Company;

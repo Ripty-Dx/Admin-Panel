@@ -12,20 +12,36 @@ export const companyTableCreate = (req, res) => {
 
 export const listOfCompanies = (req, res) => {
   let sqlQuery = "SELECT * FROM company";
-  db.query(sqlQuery,(err,result)=>{
+  db.query(sqlQuery, (err, result) => {
     if (err) {
       return res.send({
-        message:err.sqlMessage,
-        status:400
-      })
+        message: err.sqlMessage,
+        status: 400,
+      });
     }
     res.send({
-      list:result,
-      status:200
-    })
-  })
+      list: result,
+      status: 200,
+    });
+  });
 };
-export const createCompany = () => {};
+// INSERT INTO `company` (`id`, `logo`, `name`, `email`, `sectors`, `headquarters`, `employee_count`, `basic_info`, `business_model`, `founding_date`, `cto`, `address`) VALUES (NULL, '', 'VTVL', 'vtvl@gmail.com', 'Software, Technology, Services', 'Singapore', '20', 'Built by crypto native and venture capitalist, VTVL develop a token management platform powered by audited smart contracts for investors, projects and its employees to manage their token from issuance to token cap table management.', 'B2B', '2022-11-30', 'Nisha Foo', 'Singapore,Singapore');
+
+export const createCompany = (req, res) => {
+  let sqlQuery = "SELECT * FROM company";
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    res.send({
+      list: result,
+      status: 200,
+    });
+  });
+};
 export const selectedCompany = () => {};
 export const updateCompany = () => {};
 export const deleteCompany = () => {};
