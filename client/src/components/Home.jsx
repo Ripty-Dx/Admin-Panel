@@ -5,7 +5,7 @@ const Home = () => {
   // const navigate=Navigate();
   const handleClick = (str) => {
     if (str === "employee") {
-      window.location.href = "/employees";
+      window.location.href = "/employee/list";
     }
   };
   return (

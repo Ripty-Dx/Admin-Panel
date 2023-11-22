@@ -8,11 +8,11 @@ const Employees = () => {
   const userData = useFetchEmployeeData();
   const deleteApi = useDeleteEmployee();
   const handleAddNewEmployee = () => {
-    window.location.href = "/addNewEmployee ";
+    window.location.href = "/employee/create ";
   };
   const onEdit = async (id) => {
     sessionStorage.setItem("updateEmployeeId", id);
-    window.location.href = "/updateEmployee";
+    window.location.href = "/employee/update";
   };
   const onDelete = async (id) => {
     const result = await deleteApi.deleteEmployee(id);
@@ -35,7 +35,6 @@ const Employees = () => {
             <div className="w-100 shadow-sm bg-white border rounded-3 p-4 min-vh-50">
               <div className="d-flex gap-3 justify-content-center px-1 align-items-center mb-1">
                 <p className="align-middle m-0 fs-1 text-danger fw-bold">List of Employees </p>
-                <h3 className="align-middle m-0 text-danger text-capitalize">{sessionStorage.getItem("user name")}</h3>
               </div>
               <div className="d-flex justify-content-between px-1 align-items-center mb-4">
                 <h3>
@@ -43,7 +42,7 @@ const Employees = () => {
                 </h3>
                 <div className="gap-2 d-flex">
                   <button className="btn btn-primary bg-blue" onClick={handleAddNewEmployee}>
-                    Add New User
+                    Add New Employee
                   </button>
                   {/* <button className="btn btn-secondary ">Logout</button> */}
                 </div>

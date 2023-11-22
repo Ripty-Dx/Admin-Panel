@@ -7,7 +7,7 @@ const useFetchEmployeeData = () => {
   }, []);
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/useFetchEmployeeData");
+      const response = await axios.get("http://localhost:5000/employee/list");
     //   console.log(response);
       setData(response.data.EmployeeList);
     } catch (error) {

@@ -5,7 +5,7 @@ const useAddNewEmployee = (props) => {
     mutateAsync: async (props) => {
       console.log("props", props);
       try {
-        const response = await axios.post("http://localhost:5000/addNewEmployee", props);
+        const response = await axios.post("http://localhost:5000/employee/create", props);
         console.log(response);
         return response.data;
       } catch (error) {
