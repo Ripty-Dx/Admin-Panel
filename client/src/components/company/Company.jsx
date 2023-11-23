@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetchCompany from "../../api/company/useFetchCompany";
-
+import "./company.css";
 const Company = () => {
   const companyData = useFetchCompany();
   const onEdit = () => {};
@@ -20,7 +20,9 @@ const Company = () => {
                   <span className="underline">All</span> Companies
                 </h3>
                 <div className="gap-2 d-flex">
-                  <button className="btn btn-primary bg-blue">Add New Company</button>
+                  <button className="btn btn-primary bg-blue" onClick={() => (window.location.href = "/company/create")}>
+                    Add New Company
+                  </button>
                   {/* <button className="btn btn-secondary ">Logout</button> */}
                 </div>
               </div>
@@ -31,17 +33,24 @@ const Company = () => {
                       <thead>
                         <tr>
                           <th>ID</th>
-                          <th>Logo</th>
+                          {/* <th>Logo</th> */}
                           <th>Name</th>
                           <th>Email</th>
                           <th>Sectors</th>
                           <th>Headquarters</th>
-                          <th>Employee Count</th>
-                          <th>Business Model</th>
-                          <th>Founding Date</th>
+                          <th>
+                            Employee<br></br> Count
+                          </th>
+                          <th>
+                            Business <br></br>Model
+                          </th>
+                          <th>
+                            Founding<br></br> Date
+                          </th>
                           <th>CEO</th>
-                          {/* <th>Address</th> */}
+                          <th>Address</th>
                           <th>Actions</th>
+                          <th></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -50,21 +59,54 @@ const Company = () => {
                           return (
                             <tr key={index}>
                               <td>{ele?.id}</td>
-                              <td>{ele?.logo ?? "..."}</td>
+                              {/* <td>{ele?.logo ?? "..."}</td> */}
                               <td>{ele?.name ?? "..."}</td>
                               <td>{ele?.email ?? "..."}</td>
-                              <td>{ele?.sectors ?? "..."}</td>
-                              <td>{ele?.headquarter ?? "..."}</td>
+                              <td>
+                                {ele.Art === "true" ? (
+                                  <>
+                                    Art<br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {ele.Software === "true" ? (
+                                  <>
+                                    Software
+                                    <br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {ele.Education === "true" ? (
+                                  <>
+                                    Education<br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                                {ele.Healthcare === "true" ? (
+                                  <>
+                                    Healthcare<br></br>
+                                  </>
+                                ) : (
+                                  ""
+                                )}
+                              </td>
+                              <td>{ele?.headquarters ?? "..."}</td>
                               <td>{ele?.employee_count ?? "..."}</td>
                               <td>{ele?.business_model ?? "..."}</td>
                               <td>{date.toString().slice(3, 15)}</td>
                               <td>{ele?.ceo ?? "..."}</td>
+                              <td>{ele?.address ?? "..."}</td>
 
                               {/* <td>{ele?.address?.length > 0 ? ele.address : "..."}</td> */}
-                              <td>
+                              <td className="">
                                 <button className="btn btn-success me-2" onClick={() => onEdit(ele?.id)}>
                                   Edit
                                 </button>
+                              </td>
+                              <td className="ps-0">
                                 <button className="btn btn-danger" onClick={(e) => onDelete(ele?.id)}>
                                   Delete
                                 </button>

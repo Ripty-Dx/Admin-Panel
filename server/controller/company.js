@@ -25,10 +25,20 @@ export const listOfCompanies = (req, res) => {
     });
   });
 };
-// INSERT INTO `company` (`id`, `logo`, `name`, `email`, `sectors`, `headquarters`, `employee_count`, `basic_info`, `business_model`, `founding_date`, `cto`, `address`) VALUES (NULL, '', 'VTVL', 'vtvl@gmail.com', 'Software, Technology, Services', 'Singapore', '20', 'Built by crypto native and venture capitalist, VTVL develop a token management platform powered by audited smart contracts for investors, projects and its employees to manage their token from issuance to token cap table management.', 'B2B', '2022-11-30', 'Nisha Foo', 'Singapore,Singapore');
-
 export const createCompany = (req, res) => {
-  let sqlQuery = "SELECT * FROM company";
+  console.log(req.body);
+  let sectors=["Healthcare","Education","Art","Software"]
+  let sectorObject={}
+  sectors.map((ele) => {
+    if (req.body.sectors.includes(ele)) {
+      sectorObject[ele] = "true";
+    } else {
+      sectorObject[ele] = "false";
+    }
+  });
+  console.log(sectorObject);
+  let sqlQuery = `INSERT INTO company (id, logo, name, email, headquarters, employee_count, basic_info, business_model, founding_date, ceo, address,Art,Software,Education,Healthcare) VALUES (NULL, NULL, "${req.body.name}", "${req.body.email}", "${req.body.headquarters}", "${req.body.employee_count}", "${req.body.basic_info}", "${req.body.business_model}", "${req.body.foundingDate}", "${req.body.ceo}", "${req.body.address}", "${sectorObject.Art}", "${sectorObject.Software}", "${sectorObject.Education}", "${sectorObject.Healthcare}")`;
+  console.log(sqlQuery);
   db.query(sqlQuery, (err, result) => {
     if (err) {
       return res.send({
@@ -36,8 +46,9 @@ export const createCompany = (req, res) => {
         status: 400,
       });
     }
+    console.log(result);
     res.send({
-      list: result,
+      message: "Company Registered successfully",
       status: 200,
     });
   });

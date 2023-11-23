@@ -4,7 +4,7 @@ import cors from "cors";
 import employeeRoutes from "./routes/employee.js";
 import companyRoutes from "./routes/company.js";
 import { companyTableCreate } from "./controller/company.js";
-import { createEmployeesTable } from "./controller/employee.js";
+import { createEmployeeTable } from "./controller/employee.js";
 const app = express();
 const port = 5000;
 
@@ -23,8 +23,8 @@ app.use("/employee", employeeRoutes);
 app.use("/company", companyRoutes);
 
 // Models
-app.use(companyTableCreate)
-app.use(createEmployeesTable) // create table employees
+// app.use(companyTableCreate)
+// app.use(createEmployeeTable) // create table employees
 
 // Home page
 app.get("/", (req, res) => {

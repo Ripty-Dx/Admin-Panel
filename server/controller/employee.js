@@ -118,12 +118,12 @@ export const deleteEmployee = (req, res) => {
   });
 };
 // Table Creation
-export const createEmployeesTable=(req, res) => {
+export const createEmployeeTable=(req, res) => {
   let sqlQuery =
-    "create table employees(id int AUTO_INCREMENT, name varchar(255) NOT NULL, email varchar(255) NOT NULL , mobile int NOT NULL, gender varchar(255) NOT NULL, date_of_birth DATE NOT NULL, company_name varchar(255) NOT NULL,skill1 varchar(255), skill2 varchar(255), skill3 varchar(255),skill4 varchar(255), address varchar(255) NOT NULL,  UNIQUE(email), PRIMARY KEY (id) )";
+    "create table employees(id int AUTO_INCREMENT, name varchar(40) NOT NULL, email varchar(40) NOT NULL , mobile int NOT NULL, gender varchar(10) NOT NULL, date_of_birth DATE NOT NULL, company_name varchar(100) NOT NULL,skill1 varchar(10), skill2 varchar(10), skill3 varchar(10),skill4 varchar(10), address varchar(255) NOT NULL,  UNIQUE(email), PRIMARY KEY (id) )";
   db.query(sqlQuery, (err, result) => {
     if (err) throw err;
     console.log(result);
-    res.status(200).send("Table created successfully!");
+    res.status(200).send("Table employee created successfully!");
   });
 }

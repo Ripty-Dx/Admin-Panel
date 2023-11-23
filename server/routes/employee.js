@@ -3,7 +3,7 @@ import { createEmployee, deleteEmployee, listOfEmployees, selectedEmployee, upda
 const router = express.Router();
 
 // Employee CRUD
-router.get("/",(Req,res)=>{
+router.get("/",(req,res)=>{
     res.send("employee")
 })
 router.get("/list", listOfEmployees);

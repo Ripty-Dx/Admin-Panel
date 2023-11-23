@@ -2,7 +2,7 @@ import React from "react";
 import useFetchEmployeeData from "../../api/useFetchEmployeeData";
 import useDeleteEmployee from "../../api/useDeleteEmployee";
 import { useNavigate } from "react-router-dom";
-
+import "./employees.css";
 const Employees = () => {
   const navigate = useNavigate();
   const userData = useFetchEmployeeData();
