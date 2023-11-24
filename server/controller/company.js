@@ -1,5 +1,7 @@
 import connection from "../database/connection.js";
 const db = connection();
+let sectors = ["Healthcare", "Education", "Art", "Software"];
+let sectorObject = {};
 export const companyTableCreate = (req, res) => {
   let sqlQuery =
     "create table company(id int AUTO_INCREMENT, logo varchar(255), name varchar(255) NOT NULL, email varchar(255) NOT NULL , sectors varchar(255) NOT NULL, headquarters varchar(255) NOT NULL, employee_count varchar(255) NOT NULL,basic_info varchar(255) NOT NULL, business_model varchar(255) NOT NULL, founding_date date,cto varchar(255), address varchar(255) NOT NULL,  UNIQUE(email), PRIMARY KEY (id) )";
@@ -27,8 +29,6 @@ export const listOfCompanies = (req, res) => {
 };
 export const createCompany = (req, res) => {
   console.log(req.body);
-  let sectors=["Healthcare","Education","Art","Software"]
-  let sectorObject={}
   sectors.map((ele) => {
     if (req.body.sectors.includes(ele)) {
       sectorObject[ele] = "true";
@@ -53,6 +53,24 @@ export const createCompany = (req, res) => {
     });
   });
 };
-export const selectedCompany = () => {};
-export const updateCompany = () => {};
+export const selectedCompany = (req, res) => {
+  let sqlQuery = `Select * from company where id=${req.params.id}`;
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      console.log(err.sqlMessage);
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    res.send({
+      details: result,
+      status: 200,
+    });
+  });
+};
+export const updateCompany = (req, res) => {
+  // let sqlQuery=
+  console.log(req.params.id, req.body);
+};
 export const deleteCompany = () => {};

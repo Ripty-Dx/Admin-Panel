@@ -9,7 +9,7 @@ const CompanyValidation = Yup.object({
   headquarters: Yup.string().required("This field is required"),
   address: Yup.string().required("This field is required"),
   basic_info: Yup.string(),
-  sectors: Yup.array().min(1, "Pick atleast one skill").required("This field is required"),
+  sectors: Yup.array().min(1, "Pick atleast one sector").required("This field is required"),
   employee_count: Yup.number("Only Numbers allowed").min(10, "Minimum Employee Count = 10").required("This field is required"),
 });
 

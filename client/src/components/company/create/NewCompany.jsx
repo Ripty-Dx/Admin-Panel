@@ -5,10 +5,13 @@ import TextError from "../../../validation schema/TextError";
 import CompanyValidation from "../../../validation schema/CompanyValidation";
 import useCreateCompany from "../../../api/company/useCreateCompany";
 import { useNavigate } from "react-router-dom";
+import useFetchCompany from "../../../api/company/useFetchCompany";
 
 const NewCompany = () => {
+  const companyListApi = useFetchCompany();
+  // console.log(companyListApi);
   const createApi = useCreateCompany();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const handleBackToHome = () => {
     window.location.href = "/";
   };
@@ -25,18 +28,26 @@ const NewCompany = () => {
     basic_info: "",
   };
   const onSubmit = async (values) => {
-    console.log(values);
-    const result = await createApi.createCompany(values);
-    console.log(result);
-    if (result.status===200) {
-      navigate("/success", {
-        state: {
-          message: result.message,
-        },
-      });
+    const emailFilteredData = companyListApi.filter((ele) => !ele.email.localeCompare(values.email));
+    // console.log(emailFilteredData);
+    if (emailFilteredData.length) {
+      alert("This email already exists. Try again with different email");
+    } else if (companyListApi.filter((ele) => !ele.name.localeCompare(values.name)).length) {
+      alert("This company name already exists. Try again with different name");
     } else {
-      
+      const result = await createApi.createCompany(values);
+      // console.log(result);
+      if (result.status === 200) {
+        navigate("/success", {
+          state: {
+            message: result.message,
+          },
+        });
+      } else {
+        alert(`${result.message}.Try again!`);
+      }
     }
+    // console.log(values);
   };
   return (
     <>
