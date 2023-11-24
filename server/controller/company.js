@@ -11,7 +11,6 @@ export const companyTableCreate = (req, res) => {
     res.status(200).send("Table company created successfully!");
   });
 };
-
 export const listOfCompanies = (req, res) => {
   let sqlQuery = "SELECT * FROM company";
   db.query(sqlQuery, (err, result) => {
@@ -92,4 +91,18 @@ export const updateCompany = (req, res) => {
     });
   });
 };
-export const deleteCompany = () => {};
+export const deleteCompany = (req, res) => {
+  let sqlQuery = `delete FROM company where id=${req.params.id}`;
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    res.send({
+      message: "Company deleted successfully",
+      status: 200,
+    });
+  });
+};

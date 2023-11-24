@@ -1,13 +1,25 @@
 import React from "react";
 import useFetchCompany from "../../api/company/useFetchCompany";
 import "./company.css";
+import useDeleteCompany from "../../api/company/useDeleteCompany";
+import { useNavigate } from "react-router-dom";
 const Company = () => {
   const companyData = useFetchCompany();
+  const apiDeleteCompany = useDeleteCompany();
+  const navigate = useNavigate();
   const onEdit = (id) => {
     sessionStorage.setItem("update company id", id);
     window.location.href = "/company/update";
   };
-  const onDelete = () => {};
+  const onDelete = async (id) => {
+    const result = await apiDeleteCompany.deleteCompany(id);
+    console.log(result);
+    navigate("/success", {
+      state: {
+        message: result.message,
+      },
+    });
+  };
 
   return (
     <>
@@ -102,9 +114,7 @@ const Company = () => {
                               <td>{date.toString().slice(3, 15)}</td>
                               <td>{ele?.ceo ?? "..."}</td>
                               <td>{ele?.address ?? "..."}</td>
-
-                              {/* <td>{ele?.address?.length > 0 ? ele.address : "..."}</td> */}
-                              <td className="">
+                              <td className="pe-0">
                                 <button className="btn btn-success me-2" onClick={() => onEdit(ele?.id)}>
                                   Edit
                                 </button>

@@ -23,8 +23,8 @@ app.use("/employee", employeeRoutes);
 app.use("/company", companyRoutes);
 
 // Models
-app.use(companyTableCreate)
-app.use(createEmployeeTable) // create table employees
+// app.use(companyTableCreate)
+// app.use(createEmployeeTable) // create table employees
 
 // Home page
 app.get("/", (req, res) => {
