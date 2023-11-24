@@ -8,6 +8,7 @@ import AddNewEmployee from "./components/employee/add new employee/AddNewEmploye
 import UpdateEmployee from "./components/employee/update/UpdateEmployee";
 import Company from "./components/company/Company";
 import NewCompany from "./components/company/create/NewCompany";
+import UpdateCompany from "./components/company/update/UpdateCompany";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/employee/update" element={<UpdateEmployee />}></Route>
         <Route path="/company/list" element={<Company />}></Route>
         <Route path="/company/create" element={<NewCompany />}></Route>
+        <Route path="/company/update" element={<UpdateCompany />}></Route>
       </Routes>
     </>
   );

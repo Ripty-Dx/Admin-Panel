@@ -70,7 +70,26 @@ export const selectedCompany = (req, res) => {
   });
 };
 export const updateCompany = (req, res) => {
-  // let sqlQuery=
-  console.log(req.params.id, req.body);
+  sectors.map((ele) => {
+    if (req.body.sectors.includes(ele)) {
+      sectorObject[ele] = "true";
+    } else {
+      sectorObject[ele] = "false";
+    }
+  });
+  let sqlQuery = `UPDATE company SET name="${req.body.name}", email="${req.body.email}", headquarters="${req.body.headquarters}", employee_count="${req.body.employee_count}", basic_info="${req.body.basic_info}", business_model="${req.body.business_model}", founding_date="${req.body.foundingDate}", ceo="${req.body.ceo}", address="${req.body.address}", Art="${sectorObject.Art}", Software="${sectorObject.Software}", Education="${sectorObject.Education}", Healthcare="${sectorObject.Healthcare}" WHERE id=${req.params.id}`;
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    console.log(result);
+    res.send({
+      message: "Company Updated successfully",
+      status: 200,
+    });
+  });
 };
 export const deleteCompany = () => {};

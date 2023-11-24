@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useFetchCompany from "../../api/company/useFetchCompany";
 import "./company.css";
 const Company = () => {
   const companyData = useFetchCompany();
-  const onEdit = () => {};
+  const onEdit = (id) => {
+    sessionStorage.setItem("update company id", id);
+    window.location.href = "/company/update";
+  };
   const onDelete = () => {};
 
   return (
