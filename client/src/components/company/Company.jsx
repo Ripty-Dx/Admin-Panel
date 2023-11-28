@@ -5,13 +5,12 @@ import useDeleteCompany from "../../api/company/useDeleteCompany";
 import { useNavigate } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
+import useFilters from "../../api/company filters/useFilters";
 const Company = () => {
   const companyList = useFetchCompany();
   // console.log(companyList);
   const [companyData, setCompanyData] = useState(companyList || []);
-  // const [filter, setFilter] = useState({
-
-  // });
+  const filterApi = useFilters();
   const apiDeleteCompany = useDeleteCompany();
   const navigate = useNavigate();
   const onEdit = (id) => {
@@ -35,23 +34,29 @@ const Company = () => {
     employee_count: "",
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = async (values) => {
     console.log(values);
-    let filteredData = [];
-    if (values.business_model && !values.employee_count) {
-      filteredData = companyList.filter((ele) => !ele.business_model.localeCompare(values.business_model));
-    } else if (!values.business_model && values.employee_count) {
-      filteredData = companyList.filter((ele) => Number(ele.employee_count) <= Number(values.employee_count) && Number(ele.employee_count) > Number(values.employee_count) - 50);
-    } else if (values.business_model && values.employee_count) {
-      filteredData = companyList
-        .filter((ele) => !ele.business_model.localeCompare(values.business_model))
-        .filter((ele) => Number(ele.employee_count) <= Number(values.employee_count) && Number(ele.employee_count) > Number(values.employee_count) - 50);
-    } else if (!values.business_model && !values.employee_count) {
-      filteredData = [...companyList];
-      // setCompanyData(companyList);
+    if (values.business_model) {
+      const result = await filterApi.filterByBusinessModel(values.business_model);
+      if (result.status === 200) {
+        setCompanyData(result.result);
+      }
+      console.log(result);
     }
-    console.log(filteredData);
-    setCompanyData(filteredData);
+    if (values.employee_count) {
+      const result = await filterApi.filterByEmployeeCount(values.employee_count);
+      if (result.status === 200) {
+        setCompanyData(result.result);
+      }
+      console.log(result);
+    }
+    if (values.employee_count && values.business_model) {
+      const result = await filterApi.filterByModelAndCount(values.business_model, values.employee_count);
+      if (result.status === 200) {
+        setCompanyData(result.result);
+      }
+      console.log(result);
+    }
   };
   const handleReset = () => {
     setCompanyData(companyList);
@@ -88,7 +93,7 @@ const Company = () => {
                         <Form className="d-flex justify-content-between px-1 align-items-center gap-3">
                           {/* business_model */}
                           <Field as="select" className="form-select" name="business_model">
-                            <option value="" selected disabled>
+                            <option value="" disabled>
                               Select Business Model
                             </option>
                             <option value="B2B">B2B</option>
@@ -97,7 +102,7 @@ const Company = () => {
                           </Field>
                           {/* employee_count */}
                           <Field as="select" className="form-select" name="employee_count">
-                            <option value="" selected disabled>
+                            <option value="" disabled>
                               Select Employee Strength
                             </option>
                             <option value="50">10 to 50</option>
@@ -105,11 +110,11 @@ const Company = () => {
                             <option value="150">101 to 150</option>
                             <option value="200">151 to 200</option>
                           </Field>
-                          <button className="btn btn-secondary" type="reset">
-                            Reset
-                          </button>
                           <button className="btn btn-info " type="submit" disabled={!formik.isValid}>
-                            Submit
+                            Search
+                          </button>
+                          <button className="btn btn-secondary" type="reset">
+                            Clear
                           </button>
                         </Form>
 

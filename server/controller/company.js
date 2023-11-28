@@ -106,3 +106,59 @@ export const deleteCompany = (req, res) => {
     });
   });
 };
+export const filterCompaniesByModel = (req, res) => {
+  console.log(req.params.business_model);
+  let sqlQuery = `select * from company where business_model="${req.params.business_model}"`;
+  // res.send({ fxn: "filterCompanies", list: req.params });
+
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    console.log(result);
+    res.send({
+      result: result,
+      status: 200,
+    });
+  });
+};
+export const filterCompaniesByModelAndCount = (req, res) => {
+  console.log(req.params);
+  let sqlQuery = `select * from company where business_model="${req.params.business_model}" and employee_count between ${Number(req.params.employee_count) - 50} and ${req.params.employee_count}`;
+  // res.send({ fxn: "filterCompanies", list: req.params });
+
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    console.log(result);
+    res.send({
+      result: result,
+      status: 200,
+    });
+  });
+};
+export const filterCompaniesByEmployeeCounting = (req, res) => {
+  console.log("count", req.params);
+  let sqlQuery = `select * from company where employee_count between ${Number(req.params.employee_count) - 50} and ${req.params.employee_count}`;
+  console.log(sqlQuery);
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    console.log(result);
+    res.send({
+      result: result,
+      status: 200,
+    });
+  });
+};
