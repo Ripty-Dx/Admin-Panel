@@ -162,3 +162,19 @@ export const filterCompaniesByEmployeeCounting = (req, res) => {
     });
   });
 };
+export const nameOfCompanies=(req,res)=>{
+  let sqlQuery="select name from company";
+  db.query(sqlQuery, (err, result) => {
+    if (err) {
+      return res.send({
+        message: err.sqlMessage,
+        status: 400,
+      });
+    }
+    console.log(result);
+    res.send({
+      result: result,
+      status: 200,
+    });
+  });
+}

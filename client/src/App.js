@@ -9,11 +9,13 @@ import UpdateEmployee from "./components/employee/update/UpdateEmployee";
 import Company from "./components/company/Company";
 import NewCompany from "./components/company/create/NewCompany";
 import UpdateCompany from "./components/company/update/UpdateCompany";
+import DataHandling from "./components/data handling/DataHandling";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />}></Route>
+        <Route path="/dataHandling" element={<DataHandling />}></Route>
         <Route path="/employee/list" element={<Employees />}></Route>
         <Route path="/employee/create" element={<AddNewEmployee />}></Route>
         <Route path="/success" element={<Success />}></Route>

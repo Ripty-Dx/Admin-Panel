@@ -6,6 +6,7 @@ import {
   filterCompaniesByModel,
   filterCompaniesByModelAndCount,
   listOfCompanies,
+  nameOfCompanies,
   selectedCompany,
   updateCompany,
 } from "../controller/company.js";
@@ -16,6 +17,7 @@ router.get("/", (Req, res) => {
   res.send("company");
 });
 router.get("/list", listOfCompanies);
+router.get("/names", nameOfCompanies);
 router.post("/create", createCompany);
 router.get("/list/:id", selectedCompany);
 router.put("/update/:id", updateCompany);

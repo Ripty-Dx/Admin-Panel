@@ -44,5 +44,6 @@ th:nth-child(12) {
   right: 0px;
   z-index: 7;
 }
-
-
+.not-allowed {
+  cursor: not-allowed;
+}

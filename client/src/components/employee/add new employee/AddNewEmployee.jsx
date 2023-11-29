@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useFetchEmployeeData from "../../../api/useFetchEmployeeData";
 import useAddNewEmployee from "../../../api/useAddNewEmployee";
 import { EmployeeValidation } from "../../../validation schema/EmployeeValidation";
+import useCompanyName from "../../../api/company/useCompanyName";
 const AddNewEmployee = () => {
   const api = useAddNewEmployee();
   const employeesList = useFetchEmployeeData();
@@ -13,6 +14,8 @@ const AddNewEmployee = () => {
   const handleBackToHome = () => {
     window.location.href = "/";
   };
+  const companyName = useCompanyName();
+  // console.log(companyName);
   const initialValues = {
     name: "",
     email: "",
@@ -23,6 +26,7 @@ const AddNewEmployee = () => {
     skills: [],
     company: "",
   };
+
   console.log(initialValues);
   const onSubmit = async (values) => {
     const emailFilteredData = employeesList.filter((ele) => !ele.email.localeCompare(values.email));
@@ -164,12 +168,9 @@ const AddNewEmployee = () => {
                   <option disabled value="">
                     Select your company
                   </option>
-                  <option value="Microsoft">Microsoft</option>
-                  <option value="Google">Google</option>
-                  <option value="Amazon">Amazon</option>
-                  <option value="Meta">Meta</option>
-                  <option value="Dell">Dell</option>
-                  <option value="Apple">Apple</option>
+                  {companyName?.map((ele) => (
+                    <option value={ele.name}>{ele.name}</option>
+                  ))}
                 </Field>
                 <ErrorMessage component={TextError} name="company" />
               </div>

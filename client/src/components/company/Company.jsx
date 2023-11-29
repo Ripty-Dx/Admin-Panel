@@ -32,6 +32,7 @@ const Company = () => {
   const initialValues = {
     business_model: "",
     employee_count: "",
+    sectors: "",
   };
 
   const handleSubmit = async (values) => {
@@ -110,10 +111,12 @@ const Company = () => {
                             <option value="150">101 to 150</option>
                             <option value="200">151 to 200</option>
                           </Field>
-                          <button className="btn btn-info " type="submit" disabled={!formik.isValid}>
+                          {/* sectors */}
+                          {/* pending */}
+                          <button className="btn btn-info " type="submit" disabled={!formik.isValid || !formik.dirty}>
                             Search
                           </button>
-                          <button className="btn btn-secondary" type="reset">
+                          <button className="btn btn-secondary" type="reset" disabled={!formik.dirty || formik.isSubmitting}>
                             Clear
                           </button>
                         </Form>

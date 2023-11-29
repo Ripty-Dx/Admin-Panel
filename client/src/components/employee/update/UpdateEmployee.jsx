@@ -6,6 +6,7 @@ import { AiFillHome } from "react-icons/ai";
 import TextError from "../../../validation schema/TextError";
 import useFetchSpecificEmployee from "../../../api/useFetchSpecificEmployee";
 import useUpdateEmployeeDetails from "../../../api/useUpdateEmployeeDetails";
+import useCompanyName from "../../../api/company/useCompanyName";
 
 const UpdateEmployee = () => {
   const employee = useFetchSpecificEmployee();
@@ -25,6 +26,8 @@ const UpdateEmployee = () => {
   const handleBackToHome = () => {
     window.location.href = "/";
   };
+  const companyName = useCompanyName();
+
   const initialValues = {
     name: employeeDetailsState?.name,
     email: employeeDetailsState?.email,
@@ -183,12 +186,9 @@ const UpdateEmployee = () => {
                   <option disabled value="">
                     Select your company
                   </option>
-                  <option value="Microsoft">Microsoft</option>
-                  <option value="Google">Google</option>
-                  <option value="Amazon">Amazon</option>
-                  <option value="Meta">Meta</option>
-                  <option value="Dell">Dell</option>
-                  <option value="Apple">Apple</option>
+                  {companyName?.map((ele) => (
+                    <option value={ele.name}>{ele.name}</option>
+                  ))}
                 </Field>
                 <ErrorMessage component={TextError} name="company" />
               </div>
