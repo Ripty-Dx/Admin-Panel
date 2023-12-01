@@ -5,6 +5,7 @@ import employeeRoutes from "./routes/employee.js";
 import companyRoutes from "./routes/company.js";
 import { companyTableCreate } from "./controller/company.js";
 import { createEmployeeTable } from "./controller/employee.js";
+import { loginCredentials } from "./controller/login.js";
 const app = express();
 const port = 5000;
 
@@ -30,6 +31,7 @@ app.use("/company", companyRoutes);
 app.get("/", (req, res) => {
   res.send("node");
 });
+app.post("/login", loginCredentials);
 // listen on port 5000
 app.listen(5000, () => {
   console.log("server is running on port 5000");
