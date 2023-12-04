@@ -2,22 +2,22 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React from "react";
 import TextError from "../../validation schema/TextError";
 import LoginValidation from "../../validation schema/LoginValidation";
-import useLogin from "../../api/login/useLogin";
+import useRegister from "../../api/Register/useRegister";
 
-const Login = () => {
-  const loginApi = useLogin();
+const Register = () => {
+  const api = useRegister();
   const initialValues = {
     email: "",
     password: "",
   };
-  const handleSubmit = async(values, actions) => {
+  const handleSubmit = async (values, actions) => {
     // console.log(values);
     if (values.email && values.password) {
-      const result = await loginApi.sendCredentials(values);
+      const result = await api.register(values);
       console.log(result);
       //   window.location.href = "/";
     } else {
-      alert("Invalid Credentials");
+      alert("Enter credentials");
     }
     actions.resetForm();
   };
@@ -30,14 +30,14 @@ const Login = () => {
             <div className="d-flex flex-wrap justify-content-center align-items-center flex-column">
               <div>
                 <h1 className="heading">Admin</h1>
-                <h1 className="heading ps-5">Portal</h1>
+                <h1 className="heading ps-5">Registration</h1>
               </div>
             </div>
           </div>
           {/* right part */}
           <div className="col-4 mx-auto my-auto shadow-sm bg-white border rounded-3 p-4 py-5">
             <h3 className="mb-4">
-              <span className="underline">Si</span>gn in
+              <span className="underline">Re</span>gister
             </h3>
             <Form>
               {/* <!-- EMAIL --> */}
@@ -55,7 +55,7 @@ const Login = () => {
                 Submit
               </button>
               <div className="mb-3 d-flex justify-content-center align-items-center w-100">
-                <a href="/register" className="text-center">
+                <a href="/newUser" className="text-center">
                   New User? Sign up here!
                 </a>
               </div>
@@ -67,4 +67,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

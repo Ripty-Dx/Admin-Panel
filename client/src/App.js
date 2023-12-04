@@ -11,12 +11,14 @@ import NewCompany from "./components/company/create/NewCompany";
 import UpdateCompany from "./components/company/update/UpdateCompany";
 import DataHandling from "./components/data handling/DataHandling";
 import Login from "./components/Login/Login";
+import Register from "./components/Ṛegister/Register";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
         <Route path="/dataHandling" element={<DataHandling />}></Route>
         <Route path="/employee/list" element={<Employees />}></Route>
         <Route path="/employee/create" element={<AddNewEmployee />}></Route>
