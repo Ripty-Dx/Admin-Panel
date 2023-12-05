@@ -21,7 +21,7 @@ export const loginCredentials = (req, res) => {
     if (err) {
       console.log("error");
       return res.send({
-        err: err.sqlMessage,
+        message: err.sqlMessage,
         status: 400,
       });
     }
@@ -37,13 +37,13 @@ export const loginCredentials = (req, res) => {
         });
       } else {
         return res.send({
-          error: "Invalid credentials",
+          message: "Invalid credentials",
           status: 400,
         });
       }
     } else {
       return res.send({
-        error: "Invalid credentials",
+        message: "Invalid credentials",
         status: 400,
       });
     }

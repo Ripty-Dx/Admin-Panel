@@ -10,12 +10,17 @@ const Login = () => {
     email: "",
     password: "",
   };
-  const handleSubmit = async(values, actions) => {
+  const handleSubmit = async (values, actions) => {
     // console.log(values);
     if (values.email && values.password) {
       const result = await loginApi.sendCredentials(values);
       console.log(result);
-        // window.location.href = "/";
+      // window.location.href = "/";
+      if (result.status === 200) {
+        window.location.href = "/";
+      } else {
+        alert(`${result.message}.Try again!`);
+      }
     } else {
       alert("Invalid Credentials");
     }

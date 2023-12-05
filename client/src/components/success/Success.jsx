@@ -1,14 +1,18 @@
 import React from "react";
 import { AiFillHome } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
-import { Player } from "@lottiefiles/react-lottie-player";
+// import { Player } from "@lottiefiles/react-lottie-player";
 
 const Success = () => {
   const handleBackToHome = () => {
     window.location.href = "/";
   };
+  const handleBackToLogin = () => {
+    window.location.href = "/login";
+  };
   const location = useLocation();
   console.log(location.state);
+  setTimeout(handleBackToLogin, 3000);
   return (
     <>
       <div className="container-fluid">

@@ -6,7 +6,7 @@ const useLogin = () => {
       console.log(props);
       const response = await axios.post("http://localhost:5000/login", props);
       console.log(response);
-    //   return response.data.result.length;
+      return response.data;
     },
   };
 };
