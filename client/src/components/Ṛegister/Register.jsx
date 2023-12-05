@@ -3,8 +3,11 @@ import React from "react";
 import TextError from "../../validation schema/TextError";
 import LoginValidation from "../../validation schema/LoginValidation";
 import useRegister from "../../api/Register/useRegister";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const api = useRegister();
   const initialValues = {
     email: "",
@@ -15,6 +18,15 @@ const Register = () => {
     if (values.email && values.password) {
       const result = await api.register(values);
       console.log(result);
+      if (result.status === 200) {
+        navigate("/success", {
+          state: {
+            message: result.message,
+          },
+        });
+      } else {
+        alert(`${result.message}.Try again!`);
+      }
       //   window.location.href = "/";
     } else {
       alert("Enter credentials");

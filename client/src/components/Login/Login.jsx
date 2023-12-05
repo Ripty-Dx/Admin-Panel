@@ -15,7 +15,7 @@ const Login = () => {
     if (values.email && values.password) {
       const result = await loginApi.sendCredentials(values);
       console.log(result);
-      //   window.location.href = "/";
+        // window.location.href = "/";
     } else {
       alert("Invalid Credentials");
     }

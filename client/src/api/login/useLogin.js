@@ -3,9 +3,9 @@ import axios from "axios";
 const useLogin = () => {
   return {
     sendCredentials: async (props) => {
-      // console.log(props);
+      console.log(props);
       const response = await axios.post("http://localhost:5000/login", props);
-      console.log(response.data.result);
+      console.log(response);
     //   return response.data.result.length;
     },
   };
