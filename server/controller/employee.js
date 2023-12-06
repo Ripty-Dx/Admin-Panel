@@ -4,6 +4,7 @@ const db=connection();
 
 // fetch all data from table employees
 export const listOfEmployees = (req, res) => {
+
   let sql = "select * from employees";
   // console.log(res);
   db.query(sql, (err, result) => {

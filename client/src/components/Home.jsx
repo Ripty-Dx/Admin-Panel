@@ -1,8 +1,6 @@
 import React from "react";
-// import { Navigate } from "react-router-dom";
 
 const Home = () => {
-  // const navigate=Navigate();
   const handleClick = (str) => {
     if (str === "employee") {
       window.location.href = "/employee/list";

@@ -14,10 +14,12 @@ const Login = () => {
     // console.log(values);
     if (values.email && values.password) {
       const result = await loginApi.sendCredentials(values);
-      console.log(result);
+      // console.log(result);
       // window.location.href = "/";
+      // document.cookie("jwt", result.token);
+      console.log("cookie",document.cookie)
       if (result.status === 200) {
-        window.location.href = "/";
+        // window.location.href = "/";
       } else {
         alert(`${result.message}.Try again!`);
       }

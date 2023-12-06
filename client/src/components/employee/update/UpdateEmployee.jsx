@@ -193,7 +193,7 @@ const UpdateEmployee = () => {
                 <ErrorMessage component={TextError} name="company" />
               </div>
 
-              <button className="btn bg-blue btn-primary w-100">Submit</button>
+              <button className="btn bg-blue btn-primary w-100" >Update</button>
             </Form>
           </div>
         </div>

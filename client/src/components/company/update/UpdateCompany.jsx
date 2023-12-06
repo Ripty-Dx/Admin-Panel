@@ -211,7 +211,7 @@ const UpdateCompany = () => {
                 <Field as="textarea" className="form-control shadow-sm" name="basic_info" placeholder="Enter company basic information" />
                 <ErrorMessage component={TextError} name="basic_info" />
               </div>
-              <button className="btn bg-blue btn-primary w-100">Submit</button>
+              <button className="btn bg-blue btn-primary w-100">Update</button>
             </Form>
           </div>
         </div>
